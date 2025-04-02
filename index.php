@@ -19,6 +19,7 @@ $forecasts = $weatherData['forecasts'];
     <link rel="stylesheet" href="right.css">
     <link rel="stylesheet" href="left.css">
     <link rel="stylesheet" href="dark_light.css">
+    <link rel="stylesheet" href="responsive.css">
     <title>Weather Web</title>
 </head>
 
@@ -145,6 +146,7 @@ $forecasts = $weatherData['forecasts'];
                     <p class="detail-value"><?php echo $weatherData['current_observation']['atmosphere']['pressure']; ?> °</p>
                 </div>
             </section>
+
             <!-- bottom section -->
             <section class="section-sun-moon background-white box-shadow border-rounded box-sizing ">
                 <p class="sms-title">Sun & Moon Summary</p>
@@ -209,6 +211,7 @@ $forecasts = $weatherData['forecasts'];
                 </div>
             </section>
         </div>
+        
         <!-- right side -->
         <div class="main-right">
             <div class="right-side schedule-section position-relative background-white box-shadow display-block border-rounded box-sizing">

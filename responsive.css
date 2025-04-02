@@ -1,0 +1,112 @@
+@media screen and (max-width: 940px) {
+    main {
+        flex-direction: column;
+    }
+
+    .main-left {
+        width: 100%;
+        padding-inline-end: 0;
+    }
+    
+    .main-right {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .weather-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    header .header-right {
+        display: none;
+    }
+        header .header-center form input {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    header .header-center .mode-button {
+        display: none;
+    }
+    
+    header .header-center form input {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    header .header-left .location-icon,
+    header .header-left .location-city {
+        display: none;
+    }
+    
+    header .header-center form input {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    header .header-left .app-title {
+        font-size: 1.2rem;
+        margin-right: 0;
+    }
+    
+    header .header-center form input {
+        width: 120px;
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .section-sun-moon {
+        height: auto;
+        max-height: none;
+        padding-bottom: 1.5rem;
+    }
+    
+    .rise {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .graph {
+        width: 10rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .idksome .display-flex {
+        flex-wrap: wrap;
+    }
+    
+    .temperature, 
+    .feels-like {
+        margin-top: 0.5rem;
+    }
+    
+    .rise {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .rise > div {
+        margin: 0.5rem;
+    }
+
+    body {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .idksome,
+    .detail-card,
+    .section-sun-moon {
+        padding: 1rem;
+    }
+}
