@@ -1,0 +1,114 @@
+header {
+    border-radius: 0 0 .5rem .5rem;
+    background-color: white;
+    padding: 1.5rem 1rem;
+    align-items: center;
+    position: sticky;
+}
+
+
+/* Left side of the header */
+
+header .header-left {
+    align-items: center;
+}
+
+header .header-left .app-title {
+    color: #3c82f6;
+    display: block;
+    font-weight: 500 ;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-right: .75rem;
+}
+
+header .header-left .menu-icon {
+    padding: 8px;
+    margin-right: 12px;
+    stroke: #4b5563;
+}
+
+header .header-left .location-icon {
+    padding-left: 3.5rem;
+}
+
+header .header-left .location-city { 
+    padding-left: .25rem;
+    color: rgb(31 41 55);
+}
+
+/* Right side of the header */
+
+header .header-right img {
+    padding: .5rem;
+    border-radius: 99rem;
+}
+
+header .header-right img:nth-child(2) {
+    margin-left: 1rem; 
+}
+
+/* Middle/Center of the header */
+
+header .header-center {
+    font-size: .875rem;
+}
+
+header .header-center form svg {
+    left: .75rem;
+    top: 50%;
+    transform: translatey(-50%);
+}
+
+header .header-center form input {
+    border: 2px solid #d8d4dc;
+    padding: .5rem 2.5rem;
+    border-radius: .5rem;
+}
+
+header .header-center form img {
+    right: .625rem;
+    top: 50%;
+    transform : translatey(-50%);
+}
+
+.worldwide {
+    position: absolute;
+    right: 6.55rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.36rem;
+    height: 2.12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border-radius: 0 7px 7px 0;
+}
+
+.worldwide img {
+    margin-top: 1.75rem;
+}
+
+header .header-center .mode-button {
+    color: rgb(229 231 235);
+    background-color: rgb(31, 41, 55);
+    border-radius: .5rem;
+    padding: .5rem .75rem;
+    transition-duration: .3s;
+    margin-left: calc(1rem*(1 - 0));
+    margin-right: calc(1rem*0);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+header .header-center .mode-button p {
+    font-size: 16px;
+    margin-left: .5rem;
+}
+
+header .header-center .mode-button:hover {
+    background-color: #384454;
+}

@@ -1,0 +1,131 @@
+.main-left {
+    width: 60%;
+    padding-inline-end: 2rem;
+}
+
+.idksome {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.weather-description {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: rgb(31 41 55/1)
+}
+.current-time {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+.cels {
+    font-weight: 600;
+    padding-left: .75rem;
+}
+
+.temperature { font-weight: 600; padding-left: .75rem;}
+.temperature p:nth-child(1){ font-size: 3rem; line-height: 1;}
+.temperature p:nth-child(2){ font-size: 1.5rem; line-height: 2rem; padding-right: .5rem; margin-bottom: .5rem;}
+
+.cels p:nth-child(1) { font-size: 3rem; line-height: 1;}
+.cels p:nth-child(2) { font-size: 1.5rem; line-height: 2rem; padding-right: .5rem; margin-bottom: .5rem;}
+
+.feels-like {
+    padding-left: 1.5rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+.feels-like p:nth-child(1) { color: rgb(31 41 55/1);}
+.feels-like p:nth-child(2) {  color: rgb(17 24 39/1);}
+
+.wind-info {
+    margin-top: 1rem;
+    color: rgb(31 41 55/1);
+    line-height: 1.5rem;
+}
+select {
+    padding: .25rem .5rem;
+    width: auto;
+    max-width: 100%;
+    text-transform: none;
+    font-size: 100%;
+    line-height: normal;
+    border: 1px solid rgb(209 213 219);
+}
+
+/* middle */
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-card {
+    padding: 1rem;
+}
+
+.detail-title {
+    margin-left: .5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    color: rgb(31 41 55/1);
+}
+
+.detail-value {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-left: 2rem;
+}
+
+/* Bottom */
+
+.section-sun-moon {
+    padding: 1.5rem 1.5rem 3.5rem 1.5rem;
+    display: block;
+    height: 312px;
+    max-height: 312px;
+    box-sizing: border-box;
+}
+
+.sms-title {
+    margin-bottom: 1rem;
+    line-height: 1.5rem;
+}
+
+.air-quality {
+    padding-left: 1.25rem;
+}
+
+.air-quality p:nth-child(1) { font-size: .875rem; line-height: 1.25rem; color: rgb(31, 41, 55);}
+.air-quality p:nth-child(2) { font-size: 1.25rem; line-height: 1.75rem; color: #000; font-weight: 600;}
+
+.graph {
+    height: 3.5rem;
+     width: 12rem;
+    overflow: hidden;
+    margin-left: 1rem;
+}
+
+.name {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+.time {
+    font-weight: 600;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    color: rgb(31 41 55);
+}
+
+.rise div:nth-child(3) { margin-left: 1rem; }
+
+.idk {
+    padding-top: 3rem;
+}
+
+

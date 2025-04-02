@@ -1,0 +1,94 @@
+.main-right {
+    width: 40%;
+}
+.schedule-section {
+    display: block;
+    padding: 1.5rem;
+    height: 744px;
+    max-height: 744px;
+}
+.schedule-buttons {
+    margin-bottom: 1rem;
+}
+.sb {
+    padding-bottom: .25rem;
+    cursor: pointer;
+    text-transform: none;
+    background-color: initial;
+    border: 0 solid #e5e7eb;
+    font-size: 100%;
+    line-height: 1.5rem;
+    color: rgb(31, 41, 55);
+}
+.sb:not(:first-child) {
+    margin-left: 1rem;
+}
+.selected {
+    border-bottom-width: 2px;
+    border-color: #000;
+    color: #000;
+    font-weight: 600;
+}
+.schedule {
+    height: 37.8rem;
+    scrollbar-color: #80808099 #0000;
+    scrollbar-width: thin;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: auto;   
+    box-sizing: border-box;
+}
+.thing {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    height: 4rem;
+    border: 0 solid rgb(209 213 219);
+    border-bottom-width: 2px;
+    box-sizing: border-box;
+}
+.thing .left {
+    font-weight: 600;
+    color: rgb(55 65 81);
+    margin-left: .5rem;
+    width: 15rem;
+}
+.thing .left .time {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+.thing .left .weather {
+    line-height: 1.5rem;
+}
+.thing .split-line {
+    margin-left: .5rem;
+    margin-right: 5.3rem;
+    height: 3rem;
+    border: 0 solid rgb(156 163 175);
+    border-left-width: 2px;
+}
+.thing .leftt {
+    font-weight: 600;
+}
+.thing .leftt p:nth-child(1) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+.thing .leftt p:nth-child(2) {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    padding-right: .5rem;
+    margin-bottom: .5rem;
+}
+.thing .right {
+    margin-left: .5rem;
+}
+.thing .right p {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: rgb(75 85 99);
+}
+.schedule-bottom {
+    color: rgb(107 114 128);
+    left: 50%;
+    bottom: -1.75rem;
+}

@@ -1,0 +1,35 @@
+body.dark {
+    background-color: #202c34;
+}
+
+body.dark header .menu-icon {
+    stroke: #f9f9f9;
+}
+body.dark header,
+body.dark .top-left-section,
+body.dark .detail-card,
+body.dark .section-sun-moon,
+body.dark .right-side {
+    background-color: #505464;
+}
+
+body.dark .C-F {
+    background-color: #384454;
+    outline: #d1d5db;
+    color: white;
+}
+
+body.dark p,
+body.dark .top-left-section p, 
+body.dark .detail-card p,
+body.dark .section-sun-moon p,
+body.dark .right-side p,
+body.dark .location-city{
+    color: white;
+}
+
+body.dark .selected,
+body.dark .sb{
+    border-color: white;
+    color: white;
+}
