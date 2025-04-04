@@ -9,7 +9,8 @@ body.dark header,
 body.dark .top-left-section,
 body.dark .detail-card,
 body.dark .section-sun-moon,
-body.dark .right-side {
+body.dark .right-side,
+body.dark .other-thing {
     background-color: #505464;
 }
 
@@ -33,3 +34,5 @@ body.dark .sb{
     border-color: white;
     color: white;
 }
+
+

@@ -12,7 +12,7 @@ $forecasts = $weatherData['forecasts'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://static.wixstatic.com/media/58d09a_8fc52a6e282e4739a488750712ad1e74~mv2.jpeg/v1/fill/w_750,h_1000,al_c,q_85,usm_0.66_1.00_0.01/58d09a_8fc52a6e282e4739a488750712ad1e74~mv2.jpeg">
+    <link rel="icon" type="image/x-icon" href=".img/maybe-Krievins">
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="header.css">
@@ -20,6 +20,7 @@ $forecasts = $weatherData['forecasts'];
     <link rel="stylesheet" href="left.css">
     <link rel="stylesheet" href="dark_light.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="es_nez.css">
     <title>Weather Web</title>
 </head>
 
@@ -28,7 +29,7 @@ $forecasts = $weatherData['forecasts'];
         <!-- Left Header side -->
         <div class="display-flex header-left">
             <svg class="menu-icon icon-small cursor-pointer" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 6h16M4 12h16M4 18h16"  stroke-width="2" stroke-linecap="round"></path>
+                <path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"></path>
             </svg>
 
             <h1 class="app-title">VTDT Sky</h1>
@@ -59,18 +60,18 @@ $forecasts = $weatherData['forecasts'];
 
         <!-- Right Header side -->
         <div class="header-right display-flex">
-            <img src="./img/notification.gif" alt="" class="cursor-pointer icon-medium">
-            <img src="./img/settings.gif" alt="" class="cursor-pointer icon-medium">
+            <img src="./img/notification.gif" alt="" class="cursor-pointer icon-medium notif">
+            <img src="./img/maybe-Krievins" alt="" class="cursor-pointer icon-medium kriev">
+            <img src="./img/settings.gif" alt="" class="cursor-pointer icon-medium settings">
         </div>
     </header>
     <main>
         <!-- left side -->
         <div class="main-left">
             <!-- top section -->
-            <div class="idksome background-white box-shadow border-rounded top-left-section">
+            <section class="idksome background-white box-shadow border-rounded top-left-section">
                 <div class="display-flex justify-space-between">
                     <div>
-
                         <p class="weather-description">Current Weather</p>
                         <p class="current-time">Local time: <?php echo date("h:i A", intval($weatherData['current_observation']['pubDate'])); ?></p>
 
@@ -99,7 +100,7 @@ $forecasts = $weatherData['forecasts'];
                 <div>
                     <p class="wind-info">Current wind direction: <?php echo $weatherData['current_observation']['wind']['direction']; ?></p>
                 </div>
-            </div>
+            </section>
             <!-- middle section -->
             <section class="weather-details">
                 <div class="detail-card background-white box-shadow border-rounded">
@@ -146,6 +147,60 @@ $forecasts = $weatherData['forecasts'];
                     <p class="detail-value"><?php echo $weatherData['current_observation']['atmosphere']['pressure']; ?> °</p>
                 </div>
             </section>
+            <!-- the weather thing when screen is small -->
+            <div class="idkanymore display-block">
+                <div class=" other-schedule-section position-relative display-block box-sizing">
+
+                    <!-- Buttons for selecting different forecast days -->
+                    <div class="schedule-buttons">
+                        <button class="sb">Today</button>
+                        <button class="sb">Tomorrow</button>
+                        <button class="selected sb">10 Days (aka 11)</button>
+                    </div>
+
+                    <!-- Weather forecast container-->
+                    <div class="position-relative other-schedule flex-row display-flex cursor-grab box-sizing border-rounded">
+                        <?php foreach ($forecasts as $forecast) : ?>
+                            <div class="other-thing border-rounded box-shadow">
+                                <!-- Left section (Weather Icon, Date, and Description) -->
+                                <div class="lefts">
+                                    <?php
+                                    $weatherImage = "";
+                                    if ($forecast['text'] == "Sunny") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
+                                    } else if ($forecast['text'] == "Partly Cloudy") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
+                                    } else if ($forecast['text'] == "Mostly Sunny") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
+                                    } else if ($forecast['text'] == "Snow") {
+                                        $weatherImage = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-snow-light-512.png";
+                                    } else if ($forecast['text'] == "Mostly Cloudy") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/119.png";
+                                    }
+                                    ?>
+                                    <img class="icon-large" src="<?php echo $weatherImage; ?>" alt="Weather Icon">
+                                    <div class="left-details">
+                                        <p class="time"><?php echo date("D, M j", $forecast['date']); ?></p>
+                                        <p class="weather"><?php echo $forecast['text']; ?></p>
+                                    </div>
+                                </div>
+
+                                <!-- Right section (Temperature ranges and High/Low details) -->
+                                <div class="right">
+                                    <div class="other-temperature">
+                                        <p><span id="degreesvalue"><?php echo ($forecast['high'] + $forecast['low']) / 2; ?></span></p>
+                                        <p><span id="degrees">°C</span></p>
+                                    </div>
+                                    <div class="temp-details">
+                                    <p>High: <span id="degreesvalue"><?php echo $forecast['high']; ?></span><span id="degrees">°C</span></p>
+                                    <p>Low: <span id="degreesvalue"><?php echo $forecast['low']; ?></span><span id="degrees">°C</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
 
             <!-- bottom section -->
             <section class="section-sun-moon background-white box-shadow border-rounded box-sizing ">
@@ -211,7 +266,7 @@ $forecasts = $weatherData['forecasts'];
                 </div>
             </section>
         </div>
-        
+
         <!-- right side -->
         <div class="main-right">
             <div class="right-side schedule-section position-relative background-white box-shadow display-block border-rounded box-sizing">
@@ -220,8 +275,6 @@ $forecasts = $weatherData['forecasts'];
                     <button class="sb">Tomorrow</button>
                     <button class="selected sb">10 Days (aka 11)</button>
                 </div>
-
-
 
                 <div class="position-relative schedule">
                     <?php foreach ($forecasts as $forecast) : ?>
@@ -254,7 +307,7 @@ $forecasts = $weatherData['forecasts'];
                             <!-- middle/right the forecast day box thing -->
                             <div class="display-flex align-center">
                                 <div class="display-flex flex-row leftt">
-                                    <p><span id="degreesvalue"><?php echo ($forecast['high'] + $forecast['low']) / 2 ; ?></span></p>
+                                    <p><span id="degreesvalue"><?php echo ($forecast['high'] + $forecast['low']) / 2; ?></span></p>
                                     <p><span id="degrees">°C</span></p>
                                 </div>
                                 <!-- right side of the forecast day box thing  -->
@@ -267,8 +320,8 @@ $forecasts = $weatherData['forecasts'];
                     <?php endforeach; ?>
                 </div>
 
-    
-    
+
+
 
 
                 <!-- idk some arrow on the bottom of the right side -->
@@ -282,76 +335,107 @@ $forecasts = $weatherData['forecasts'];
     </main>
 
     <!-- °C and °F js-->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const degreeValues = document.querySelectorAll("[id='degreesvalue']");
-        const speedValues = document.querySelectorAll("[id='spedvalue']");
-        const distanceValues = document.querySelectorAll("[id='distvalue']");
-        const unitToggle = document.getElementById("unitToggle");
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const degreeValues = document.querySelectorAll("[id='degreesvalue']");
+            const speedValues = document.querySelectorAll("[id='spedvalue']");
+            const distanceValues = document.querySelectorAll("[id='distvalue']");
+            const unitToggle = document.getElementById("unitToggle");
 
-        const initialValues = {
-            degrees: Array.from(degreeValues, el => parseFloat(el.innerText)),
-            speed: Array.from(speedValues, el => parseFloat(el.innerText)),
-            distance: Array.from(distanceValues, el => parseFloat(el.innerText))
-        };
+            const initialValues = {
+                degrees: Array.from(degreeValues, el => parseFloat(el.innerText)),
+                speed: Array.from(speedValues, el => parseFloat(el.innerText)),
+                distance: Array.from(distanceValues, el => parseFloat(el.innerText))
+            };
 
-        function formatValue(value) {
-            return value % 1 === 0 ? value.toFixed(0) : value.toFixed(1);
-        }
+            function formatValue(value) {
+                return value % 1 === 0 ? value.toFixed(0) : value.toFixed(1);
+            }
 
-        function updateUnits() {
-            const selectedSystem = unitToggle.value;
+            function updateUnits() {
+                const selectedSystem = unitToggle.value;
 
-            document.querySelectorAll("[id='degrees']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "°F" : "°C");
-            document.querySelectorAll("[id='speed']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "mi/h" : "km/h");
-            document.querySelectorAll("[id='distance']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "mi" : "km");
+                document.querySelectorAll("[id='degrees']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "°F" : "°C");
+                document.querySelectorAll("[id='speed']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "mi/h" : "km/h");
+                document.querySelectorAll("[id='distance']").forEach(el => el.innerText = selectedSystem === "fahrenheit" ? "mi" : "km");
 
-            degreeValues.forEach((el, i) => {
-                el.innerText = selectedSystem === "fahrenheit"
-                    ? formatValue((initialValues.degrees[i] * 9/5) + 32)
-                    : formatValue(initialValues.degrees[i]);
-            });
+                degreeValues.forEach((el, i) => {
+                    el.innerText = selectedSystem === "fahrenheit" ?
+                        formatValue((initialValues.degrees[i] * 9 / 5) + 32) :
+                        formatValue(initialValues.degrees[i]);
+                });
 
-            speedValues.forEach((el, i) => {
-                el.innerText = selectedSystem === "fahrenheit"
-                    ? formatValue(initialValues.speed[i] * 0.621371)
-                    : formatValue(initialValues.speed[i]);
-            });
+                speedValues.forEach((el, i) => {
+                    el.innerText = selectedSystem === "fahrenheit" ?
+                        formatValue(initialValues.speed[i] * 0.621371) :
+                        formatValue(initialValues.speed[i]);
+                });
 
-            distanceValues.forEach((el, i) => {
-                el.innerText = selectedSystem === "fahrenheit"
-                    ? formatValue(initialValues.distance[i] * 0.621371)
-                    : formatValue(initialValues.distance[i]);
-            });
-        }
+                distanceValues.forEach((el, i) => {
+                    el.innerText = selectedSystem === "fahrenheit" ?
+                        formatValue(initialValues.distance[i] * 0.621371) :
+                        formatValue(initialValues.distance[i]);
+                });
+            }
 
-        unitToggle.addEventListener("change", updateUnits);
-        updateUnits();
-    });
-</script>
+            unitToggle.addEventListener("change", updateUnits);
+            updateUnits();
+        });
+    </script>
 
-<!-- Dark/Light mode js-->
-<script>
-    function idkFunction() {
-        const body = document.body;
-        const button = document.querySelector(".mode-button");
-        const buttonText = button.querySelector("p");
-        const buttonIcon = button.querySelector("svg");
+    <!-- Dark/Light mode js-->
+    <script>
+        function idkFunction() {
+            const body = document.body;
+            const button = document.querySelector(".mode-button");
+            const buttonText = button.querySelector("p");
+            const buttonIcon = button.querySelector("svg");
 
-        body.classList.toggle("dark");
+            body.classList.toggle("dark");
 
-        if (body.classList.contains("dark")) {
-            buttonText.textContent = "Dark";
-            buttonIcon.innerHTML = `
+            if (body.classList.contains("dark")) {
+                buttonText.textContent = "Dark";
+                buttonIcon.innerHTML = `
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"></path>
             `;
-        } else {
-            buttonText.textContent = "Light";
-            buttonIcon.innerHTML = `
+            } else {
+                buttonText.textContent = "Light";
+                buttonIcon.innerHTML = `
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"></path>
             `;
+            }
         }
-    }
+    </script>
+
+<script>
+
+    const slider  = document.querySelector('.other-schedule');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX;
+        scrollLeft = slider.scrollLeft;
+    });
+
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX;
+    const walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+    });
 </script>
 
 </body>

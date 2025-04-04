@@ -1,0 +1,83 @@
+.idkanymore {
+    width: 100%;
+    margin: 0;
+    padding-top: 1.5rem;
+}
+
+.other-schedule {
+    padding: 0;
+    height: 260px;
+    overflow-x: auto;
+    gap: 1rem;
+    overflow-x: hidden;
+}
+.other-schedule-section {
+    height: 344px;
+    max-height: 744px;
+}
+
+.other-thing {
+    display: flex;
+    padding: 1rem;
+    width: 125px;
+    min-width: 125px;
+    max-width: 150px;
+    background-color: #fff;
+    flex-direction: column;
+    height: 190px;
+    max-height: 208px;
+    align-items: normal;
+    justify-content: flex-start;
+    user-select: none;
+    pointer-events: none;
+}
+
+.other-thing .lefts {
+    width: auto;
+    align-items: normal;
+    margin: 0;
+}
+
+.other-thing .lefts .time {
+    margin-top: .5rem;
+    font-weight: 400;
+}
+
+
+.other-thing .leftt,
+.other-thing .right {
+    margin: 0;
+    margin-top: .5rem;
+}
+
+.thing:not(:first-child) { 
+    margin-left: 1rem;
+}
+
+.other-temperature { 
+    font-weight: 600; 
+    padding-left: .75rem; 
+    display: flex; 
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.other-temperature p:nth-child(1) { 
+    font-size: 2rem; 
+    line-height: 1; 
+    margin-right: .2rem;
+}
+
+.other-temperature p:nth-child(2) { 
+    font-size: 1rem; 
+    line-height: 1; 
+    padding-right: .2rem;
+    margin-bottom: .1rem;
+    position: relative;
+    top: -0.6rem;
+}
+
+.left-details .weather{
+    font-weight: 500;
+    font-size: .85rem;
+}
