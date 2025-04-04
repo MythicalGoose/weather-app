@@ -12,7 +12,7 @@ $forecasts = $weatherData['forecasts'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href=".img/maybe-Krievins">
+    <link rel="icon" type="image/x-icon" href=".img/maybe-Krievins.jpeg">
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="header.css">
@@ -61,7 +61,7 @@ $forecasts = $weatherData['forecasts'];
         <!-- Right Header side -->
         <div class="header-right display-flex">
             <img src="./img/notification.gif" alt="" class="cursor-pointer icon-medium notif">
-            <img src="./img/maybe-Krievins" alt="" class="cursor-pointer icon-medium kriev">
+            <img src="./img/maybe-Krievins.jpeg" alt="" class="cursor-pointer icon-medium kriev">
             <img src="./img/settings.gif" alt="" class="cursor-pointer icon-medium settings">
         </div>
     </header>
@@ -320,10 +320,6 @@ $forecasts = $weatherData['forecasts'];
                     <?php endforeach; ?>
                 </div>
 
-
-
-
-
                 <!-- idk some arrow on the bottom of the right side -->
                 <div class="position-relative schedule-bottom icon-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-7 h-7 text-gray-500">
@@ -407,36 +403,38 @@ $forecasts = $weatherData['forecasts'];
         }
     </script>
 
-<script>
 
-    const slider  = document.querySelector('.other-schedule');
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    <!--Priekš tā tur weather section kuru tu redzi ka samazini screen-->
+    <script>
 
-    slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        startX = e.pageX;
-        scrollLeft = slider.scrollLeft;
-    });
+        const slider  = document.querySelector('.other-schedule');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX;
+            scrollLeft = slider.scrollLeft;
+        });
 
 
-    slider.addEventListener('mouseleave', () => {
-        isDown = false;
-    });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
 
-    slider.addEventListener('mouseup', () => {
-        isDown = false;
-    });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
 
-    slider.addEventListener('mousemove', (e) => {
-        if(!isDown) return;
-    e.preventDefault();
-    const x = e.pageX;
-    const walk = x - startX;
-        slider.scrollLeft = scrollLeft - walk;
-    });
-</script>
+        slider.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX;
+        const walk = x - startX;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
 
 </body>
 
