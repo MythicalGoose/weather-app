@@ -1,4 +1,5 @@
-# weather-app
-Krieviņa Stundai weather app
+# VTDT sky
+Krieviņa Stundai weather app  👍
 
 (i hate responsive design :sob: :pray:)
+
