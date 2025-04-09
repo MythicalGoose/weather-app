@@ -1,9 +1,6 @@
 <?php
-$data = '{"location":{"city":"Cesis","woeid":851991,"country":"Latvia","lat":57.31802,"long":25.281811,"timezone_id":"Europe/Riga"},
-"current_observation":{"pubDate":1741941340,"wind":{"chill":16,"direction":"NW","speed":12},"atmosphere":{"humidity":83,"visibility":14.98,"pressure":994.6},"astronomy":{"sunrise":"6:36 AM","sunset":"6:21 PM"},"condition":{"temperature":28,"text":"Cloudy","code":26}},
-"forecasts":[{"day":"Fri","date":1741968000,"high":36,"low":21,"text":"Partly Cloudy","code":30},{"day":"Sat","date":1742054400,"high":41,"low":27,"text":"Sunny","code":32},{"day":"Sun","date":1742140800,"high":40,"low":22,"text":"Snow","code":16},{"day":"Mon","date":1742227200,"high":41,"low":26,"text":"Partly Cloudy","code":30},{"day":"Tue","date":1742313600,"high":44,"low":29,"text":"Mostly Cloudy","code":28},{"day":"Wed","date":1742400000,"high":48,"low":31,"text":"Mostly Sunny","code":34},{"day":"Thu","date":1742486400,"high":51,"low":32,"text":"Sunny","code":32},{"day":"Fri","date":1742572800,"high":55,"low":35,"text":"Partly Cloudy","code":30},{"day":"Sat","date":1742659200,"high":54,"low":36,"text":"Partly Cloudy","code":30},{"day":"Sun","date":1742745600,"high":54,"low":35,"text":"Mostly Sunny","code":34},{"day":"Mon","date":1742832000,"high":53,"low":38,"text":"Sunny","code":32}]}';
+$data = file_get_contents("http://emo.lv/weather-api/forecast/?city=cesis,latvia");
 $weatherData = json_decode($data, true);
-$forecasts = $weatherData['forecasts'];
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +9,7 @@ $forecasts = $weatherData['forecasts'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href=".img/maybe-Krievins.jpeg">
+    <link rel="icon" type="image/x-icon" href="img/maybe-Krievins.jpeg">
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="header.css">
@@ -35,7 +32,7 @@ $forecasts = $weatherData['forecasts'];
             <h1 class="app-title">VTDT Sky</h1>
 
             <img class="location-icon icon-small" src="./img/google-maps.gif" alt="">
-            <span class="location-city"><?php echo $weatherData['location']['city'] . ", " . $weatherData['location']['country']; ?></span>
+            <span class="location-city"><?php echo $weatherData['city']['name'] . ", " . $weatherData['city']['country']; ?></span>
         </div>
 
         <!-- Middle of Header -->
@@ -73,20 +70,22 @@ $forecasts = $weatherData['forecasts'];
                 <div class="display-flex justify-space-between">
                     <div>
                         <p class="weather-description">Current Weather</p>
-                        <p class="current-time">Local time: <?php echo date("h:i A", intval($weatherData['current_observation']['pubDate'])); ?></p>
+                        <p class="current-time">Local time: <?php date_default_timezone_set("Europe/Riga");
+                $date = date('H:i', time());
+                echo $date;?></p>
 
                         <div class="display-flex align-center">
                             <img class="icon-large" src="//cdn.weatherapi.com/weather/64x64/day/113.png" alt="Weather Icon">
                             <div class="display-flex align-center temperature">
-                                <p><span id="degreesvalue"><?php echo $weatherData['current_observation']['condition']['temperature']; ?></span></p>
+                                <p><span id="degreesvalue"><?php echo $weatherData['list'][0]['temp']['day']; ?></span></p>
                                 <p><span id="degrees">°C</span></p>
                             </div>
 
 
 
                             <div class="feels-like">
-                                <p><?php echo $weatherData['current_observation']['condition']['text']; ?></p>
-                                <p>Feels like <span id="degreesvalue"><?php echo $weatherData['current_observation']['condition']['code']; ?></span><span id="degrees">°C</span></p>
+                                <p><?php echo $weatherData['list'][0]['weather'][0]['main']; ?></p>
+                                <p>Feels like <span id="degreesvalue"><?php echo $weatherData['list'][0]['feels_like']['day']; ?></span><span id="degrees">°C</span></p>
                             </div>
                         </div>
                     </div>
@@ -98,38 +97,38 @@ $forecasts = $weatherData['forecasts'];
                     </div>
                 </div>
                 <div>
-                    <p class="wind-info">Current wind direction: <?php echo $weatherData['current_observation']['wind']['direction']; ?></p>
+                    <p class="wind-info">Current wind gust: <span id="spedvalue"><?php echo $weatherData['list'][0]['gust']; ?></span><span id="speed">km/h</span></p>
                 </div>
             </section>
-            <!-- middle section -->
+            <!-- middle section (the 6 cards)-->
             <section class="weather-details">
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
                         <img src="./img/clouds.gif" alt="" class="icon-small">
-                        <p class="detail-title">Air Quality</p>
+                        <p class="detail-title">Clouds</p>
                     </div>
-                    <p class="detail-value">N/A</p>
+                    <p class="detail-value"><?php echo $weatherData['list'][0]['clouds'] ?></p>
                 </div>
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
                         <img src="./img/wind.gif" alt="" class="icon-small">
                         <p class="detail-title">Wind</p>
                     </div>
-                    <p class="detail-value"><span id="spedvalue"><?php echo $weatherData['current_observation']['wind']['speed']; ?></span><span id="speed">km/h</span> </p>
+                    <p class="detail-value"><span id="spedvalue"><?php echo  $weatherData['list'][0]['speed']; ?></span><span id="speed">km/h</span> </p>
                 </div>
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
                         <img src="./img/humidity.gif" alt="" class="icon-small">
                         <p class="detail-title">Humidity</p>
                     </div>
-                    <p class="detail-value"><?php echo $weatherData['current_observation']['atmosphere']['humidity']; ?>%</p>
+                    <p class="detail-value"><?php echo $weatherData['list'][0]['humidity']; ?>%</p>
                 </div>
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
                         <img src="./img/vision.gif" alt="" class="icon-small">
-                        <p class="detail-title">Visibility</p>
+                        <p class="detail-title">Population</p>
                     </div>
-                    <p class="detail-value"><span id="distvalue"><?php echo $weatherData['current_observation']['atmosphere']['visibility']; ?></span><span id="distance"> km</span></p>
+                    <p class="detail-value"><?php echo $weatherData['city']['population']; ?></p>
                 </div>
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
@@ -137,21 +136,21 @@ $forecasts = $weatherData['forecasts'];
                         <p class="detail-title">Pressure</p>
                     </div>
 
-                    <p class="detail-value"><?php echo round($weatherData['current_observation']['atmosphere']['pressure'] / 33.87, 2) ?> in</p>
+                    <p class="detail-value"><?php echo round($weatherData['list'][0]['pressure'] / 33.87, 2) ?> in</p>
                 </div>
                 <div class="detail-card background-white box-shadow border-rounded">
                     <div class="display-flex">
                         <img src="./img/air-pump.gif" alt="" class="icon-small">
                         <p class="detail-title">Pressure</p>
                     </div>
-                    <p class="detail-value"><?php echo $weatherData['current_observation']['atmosphere']['pressure']; ?> °</p>
+                    <p class="detail-value"><?php echo $weatherData['list'][0]['pressure']; ?> °</p>
                 </div>
             </section>
             <!-- the weather thing when screen is small -->
             <div class="idkanymore display-block">
                 <div class=" other-schedule-section position-relative display-block box-sizing">
 
-                    <!-- Buttons for selecting different forecast days -->
+                    <!-- Buttons for selecting different forecast days [do not work rn cuz i havent added that] -->
                     <div class="schedule-buttons">
                         <button class="sb">Today</button>
                         <button class="sb">Tomorrow</button>
@@ -160,40 +159,46 @@ $forecasts = $weatherData['forecasts'];
 
                     <!-- Weather forecast container-->
                     <div class="position-relative other-schedule flex-row display-flex cursor-grab box-sizing border-rounded">
-                        <?php foreach ($forecasts as $forecast) : ?>
+                        <?php foreach ($weatherData['list'] as $day) : ?>
                             <div class="other-thing border-rounded box-shadow">
                                 <!-- Left section (Weather Icon, Date, and Description) -->
                                 <div class="lefts">
                                     <?php
                                     $weatherImage = "";
-                                    if ($forecast['text'] == "Sunny") {
+                                    if ($day['weather'][0]['description'] == "sky is clear") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/113.png";
+                                    } else if ($day['weather'][0]['description'] == "snow") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/326.png";
+                                    } else if ($day['weather'][0]['description'] == "mostly Sunny") {
                                         $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                    } else if ($forecast['text'] == "Partly Cloudy") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
-                                    } else if ($forecast['text'] == "Mostly Sunny") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                    } else if ($forecast['text'] == "Snow") {
-                                        $weatherImage = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-snow-light-512.png";
-                                    } else if ($forecast['text'] == "Mostly Cloudy") {
+                                    } else if ($day['weather'][0]['description'] == "rain and snow") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/317.png";
+                                    } else if ($day['weather'][0]['description'] == "mostly Cloudy") {
                                         $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/119.png";
+                                    }else if ($day['weather'][0]['description'] == "light rain") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/302.png";
+                                    }else if ($day['weather'][0]['description'] == "overcast clouds") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/122.png";
+                                    }else if ($day['weather'][0]['description'] == "broken clouds") {
+                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
                                     }
                                     ?>
                                     <img class="icon-large" src="<?php echo $weatherImage; ?>" alt="Weather Icon">
                                     <div class="left-details">
-                                        <p class="time"><?php echo date("D, M j", $forecast['date']); ?></p>
-                                        <p class="weather"><?php echo $forecast['text']; ?></p>
+                                        <p class="time"><?php echo date('Y-m-d', $day['dt']); ?></p>
+                                        <p class="weather"><?php echo $day['weather'][0]['description']; ?></p>
                                     </div>
                                 </div>
 
-                                <!-- Right section (Temperature ranges and High/Low details) -->
+                                <!-- Temperatures -->
                                 <div class="right">
                                     <div class="other-temperature">
-                                        <p><span id="degreesvalue"><?php echo ($forecast['high'] + $forecast['low']) / 2; ?></span></p>
+                                        <p><span id="degreesvalue"><?php echo $day['temp']['day']; ?></span></p>
                                         <p><span id="degrees">°C</span></p>
                                     </div>
                                     <div class="temp-details">
-                                    <p>High: <span id="degreesvalue"><?php echo $forecast['high']; ?></span><span id="degrees">°C</span></p>
-                                    <p>Low: <span id="degreesvalue"><?php echo $forecast['low']; ?></span><span id="degrees">°C</span></p>
+                                        <p>High: <span id="degreesvalue"><?php echo $day['temp']['max']; ?></span><span id="degrees">°C</span></p>
+                                        <p>Low: <span id="degreesvalue"><?php echo $day['temp']['min']; ?></span><span id="degrees">°C</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -209,15 +214,15 @@ $forecasts = $weatherData['forecasts'];
                     <div class="display-flex flex-row">
                         <img class="icon-large" src="./img/sun.gif" alt="">
                         <div class="flex-column air-quality">
-                            <p>Air Quality</p>
-                            <p>N/A</p>
+                            <p>Day <span id="degrees">°C</span></p>
+                            <p><span id="degreesvalue"><?php echo $weatherData['list'][0]['temp']['day'];?></span></p>
                         </div>
                     </div>
                     <div class="rise display-flex flex-row">
                         <div class="display-flex flex-column align-center">
                             <img src="./img/field.gif" alt="" class="icon-small">
                             <p class="name">Sunrise</p>
-                            <p class="time"><?php echo $weatherData['current_observation']['astronomy']['sunrise']; ?></p>
+                            <p class="time"><?php echo date("H:i", $day['sunrise']); ?></p>
                         </div>
 
                         <div class="graph">
@@ -230,7 +235,7 @@ $forecasts = $weatherData['forecasts'];
                         <div class="display-flex flex-column align-center">
                             <img src="./img/sunset.gif" alt="" class="icon-small">
                             <p class="name">Sunset</p>
-                            <p class="time"><?php echo $weatherData['current_observation']['astronomy']['sunset']; ?></p>
+                            <p class="time"><?php echo date("H:i", $day['sunset']); ?></p>
                         </div>
                     </div>
                 </div>
@@ -239,8 +244,8 @@ $forecasts = $weatherData['forecasts'];
                     <div class="display-flex flex-row">
                         <img class="icon-large" src="./img/moon.gif" alt="">
                         <div class="display-flex-column air-quality">
-                            <p>Air Quality</p>
-                            <p>N/A</p>
+                            <p>Night <span id="degrees">°C</span></p>
+                            <p><span id="degreesvalue"><?php echo $weatherData['list'][0]['temp']['night']; ?></span></p>
                         </div>
                     </div>
                     <div class="rise display-flex flex-row">
@@ -273,32 +278,38 @@ $forecasts = $weatherData['forecasts'];
                 <div class="schedule-buttons">
                     <button class="sb">Today</button>
                     <button class="sb">Tomorrow</button>
-                    <button class="selected sb">10 Days (aka 11)</button>
+                    <button class="selected sb">10 Days [14*]</button>
                 </div>
 
                 <div class="position-relative schedule">
-                    <?php foreach ($forecasts as $forecast) : ?>
+                    <?php foreach ($weatherData['list'] as $day) : ?>
                         <div class="display-flex thing align-center">
                             <!-- left side of the thing -->
                             <div class="display-flex align-center">
                                 <?php
                                 $weatherImage = "";
-                                if ($forecast['text'] == "Sunny") {
+                                if ($day['weather'][0]['description'] == "sky is clear") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/113.png";
+                                } else if ($day['weather'][0]['description'] == "snow") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/326.png";
+                                } else if ($day['weather'][0]['description'] == "mostly Sunny") {
                                     $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                } else if ($forecast['text'] == "Partly Cloudy") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
-                                } else if ($forecast['text'] == "Mostly Sunny") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                } else if ($forecast['text'] == "Snow") {
-                                    $weatherImage = "https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-snow-light-512.png";
-                                } else if ($forecast['text'] == "Mostly Cloudy") {
+                                } else if ($day['weather'][0]['description'] == "rain and snow") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/317.png";
+                                } else if ($day['weather'][0]['description'] == "mostly Cloudy") {
                                     $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/119.png";
+                                }else if ($day['weather'][0]['description'] == "light rain") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/302.png";
+                                }else if ($day['weather'][0]['description'] == "overcast clouds") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/122.png";
+                                }else if ($day['weather'][0]['description'] == "broken clouds") {
+                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
                                 }
                                 ?>
                                 <img class="icon-large" src="<?php echo $weatherImage; ?>" alt="Weather Icon">
                                 <div class="display-flex flex-column left">
-                                    <p class="time"><?php echo date("D, M j", $forecast['date']); ?></p>
-                                    <p class="weather"><?php echo $forecast['text']; ?></p>
+                                    <p class="time"><?php echo date('Y-m-d', $day['dt']); ?></p>
+                                    <p class="weather"><?php echo $day['weather'][0]['description']; ?></p>
                                 </div>
                             </div>
                             <!-- middle of the forecast day box thing -->
@@ -307,13 +318,13 @@ $forecasts = $weatherData['forecasts'];
                             <!-- middle/right the forecast day box thing -->
                             <div class="display-flex align-center">
                                 <div class="display-flex flex-row leftt">
-                                    <p><span id="degreesvalue"><?php echo ($forecast['high'] + $forecast['low']) / 2; ?></span></p>
+                                    <p><span id="degreesvalue"><?php echo $day['temp']['day']; ?></span></p>
                                     <p><span id="degrees">°C</span></p>
                                 </div>
                                 <!-- right side of the forecast day box thing  -->
                                 <div class="display-flex flex-column right">
-                                    <p>High: <span id="degreesvalue"><?php echo $forecast['high']; ?></span><span id="degrees">°C</span></p>
-                                    <p>Low: <span id="degreesvalue"><?php echo $forecast['low']; ?></span><span id="degrees">°C</span></p>
+                                    <p>High: <span id="degreesvalue"><?php echo $day['temp']['max']; ?></span><span id="degrees">°C</span></p>
+                                    <p>Low: <span id="degreesvalue"><?php echo $day['temp']['min']; ?></span><span id="degrees">°C</span></p>
                                 </div>
                             </div>
                         </div>
