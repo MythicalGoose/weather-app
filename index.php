@@ -154,7 +154,7 @@ $weatherData = json_decode($data, true);
                     <div class="schedule-buttons">
                         <button class="sb">Today</button>
                         <button class="sb">Tomorrow</button>
-                        <button class="selected sb">10 Days (aka 11)</button>
+                        <button class="selected sb">10 Days[14*]</button>
                     </div>
 
                     <!-- Weather forecast container-->
@@ -164,24 +164,20 @@ $weatherData = json_decode($data, true);
                                 <!-- Left section (Weather Icon, Date, and Description) -->
                                 <div class="lefts">
                                     <?php
-                                    $weatherImage = "";
-                                    if ($day['weather'][0]['description'] == "sky is clear") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/113.png";
-                                    } else if ($day['weather'][0]['description'] == "snow") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/326.png";
-                                    } else if ($day['weather'][0]['description'] == "mostly Sunny") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                    } else if ($day['weather'][0]['description'] == "rain and snow") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/317.png";
-                                    } else if ($day['weather'][0]['description'] == "mostly Cloudy") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/119.png";
-                                    }else if ($day['weather'][0]['description'] == "light rain") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/302.png";
-                                    }else if ($day['weather'][0]['description'] == "overcast clouds") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/122.png";
-                                    }else if ($day['weather'][0]['description'] == "broken clouds") {
-                                        $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
-                                    }
+                                    $weatherIcons = [
+                                        "sky is clear" => "https://cdn.weatherapi.com/weather/64x64/night/113.png",
+                                        "snow" => "https://cdn.weatherapi.com/weather/64x64/day/326.png",
+                                        "mostly Sunny" => "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+                                        "rain and snow" => "https://cdn.weatherapi.com/weather/64x64/night/317.png",
+                                        "mostly Cloudy" => "https://cdn.weatherapi.com/weather/64x64/day/119.png",
+                                        "light snow" => "https://cdn.weatherapi.com/weather/64x64/day/326.png",
+                                        "light rain" => "https://cdn.weatherapi.com/weather/64x64/day/302.png",
+                                        "overcast clouds" => "https://cdn.weatherapi.com/weather/64x64/day/122.png",
+                                        "broken clouds" => "img/broken-clouds.png",
+                                        "scattered clouds" => "img/scattered-clouds.png"
+                                    ];
+
+                                    $weatherImage = $weatherIcons[$day['weather'][0]['description']] ?? "img/default-weather.png";
                                     ?>
                                     <img class="icon-large" src="<?php echo $weatherImage; ?>" alt="Weather Icon">
                                     <div class="left-details">
@@ -250,9 +246,9 @@ $weatherData = json_decode($data, true);
                     </div>
                     <div class="rise display-flex flex-row">
                         <div class="display-flex flex-column align-center">
-                            <img src="./img/moon-rise.gif" alt="" class="icon-small">
-                            <p class="name">Moonrise</p>
-                            <p class="time">N/A</p>
+                            <img src="https://cdn.weatherapi.com/weather/64x64/day/326.png"," alt="" class="icon-small">
+                            <p class="name">chance of snow</p>
+                            <p class="chance"><?php echo $weatherData['list'][0]['snow']; ?>%</p>
                         </div>
 
                         <div class="graph">
@@ -263,9 +259,9 @@ $weatherData = json_decode($data, true);
                         </div>
 
                         <div class="display-flex flex-column align-center">
-                            <img src="./img/moon-set.gif" alt="" class="icon-small">
-                            <p class="name">Moonset</p>
-                            <p class="time">N/A</p>
+                            <img src="https://cdn.weatherapi.com/weather/64x64/day/296.png" alt="" class="icon-small">
+                            <p class="name">chance of rain</p>
+                            <p class="chance"><?php echo isset($weatherData['list'][3]['rain']) ? $weatherData['list'][3]['rain']: "no data 0-0";  ?>%</p> <!-- spent a while trying to figure out why tf the rain % didn't wanna work 😭-->
                         </div>
                     </div>
                 </div>
@@ -281,30 +277,27 @@ $weatherData = json_decode($data, true);
                     <button class="selected sb">10 Days [14*]</button>
                 </div>
 
-                <div class="position-relative schedule">
+                <div class="position-relative schedule" style="text-align: center;">
                     <?php foreach ($weatherData['list'] as $day) : ?>
-                        <div class="display-flex thing align-center">
+                        <div class="display-flex thing align-center" style="margin: 0 auto;"> <!--had to add style cuz idk why in css file it dosnt do the margin ;-; -->
                             <!-- left side of the thing -->
                             <div class="display-flex align-center">
                                 <?php
-                                $weatherImage = "";
-                                if ($day['weather'][0]['description'] == "sky is clear") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/113.png";
-                                } else if ($day['weather'][0]['description'] == "snow") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/326.png";
-                                } else if ($day['weather'][0]['description'] == "mostly Sunny") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/113.png";
-                                } else if ($day['weather'][0]['description'] == "rain and snow") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/night/317.png";
-                                } else if ($day['weather'][0]['description'] == "mostly Cloudy") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/119.png";
-                                }else if ($day['weather'][0]['description'] == "light rain") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/302.png";
-                                }else if ($day['weather'][0]['description'] == "overcast clouds") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/122.png";
-                                }else if ($day['weather'][0]['description'] == "broken clouds") {
-                                    $weatherImage = "https://cdn.weatherapi.com/weather/64x64/day/116.png";
-                                }
+                                $weatherIcons = [
+                                    "sky is clear" => "https://cdn.weatherapi.com/weather/64x64/night/113.png",
+                                    "snow" => "https://cdn.weatherapi.com/weather/64x64/day/326.png",
+                                    "mostly Sunny" => "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+                                    "rain and snow" => "https://cdn.weatherapi.com/weather/64x64/night/317.png",
+                                    "mostly Cloudy" => "https://cdn.weatherapi.com/weather/64x64/day/119.png",
+                                    "light snow" => "https://cdn.weatherapi.com/weather/64x64/day/326.png",
+                                    "light rain" => "https://cdn.weatherapi.com/weather/64x64/day/302.png",
+                                    "overcast clouds" => "https://cdn.weatherapi.com/weather/64x64/day/122.png",
+                                    "broken clouds" => "img/broken-clouds.png", // custom icon !!!
+                                    "scattered clouds" => "img/scattered-clouds.png" // custom icon !!!
+                                ];
+
+                                $weatherImage = $weatherIcons[$day['weather'][0]['description']] ?? "img/default-weather.png";
+
                                 ?>
                                 <img class="icon-large" src="<?php echo $weatherImage; ?>" alt="Weather Icon">
                                 <div class="display-flex flex-column left">
